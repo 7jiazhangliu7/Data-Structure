@@ -4,19 +4,19 @@
     1. seperate chaining: 如果有重复，就用linkedlist来存重复hashcode的所有object
       这样的缺点很明显：需要额外数据结构，额外空间来存pointer，并且如果hash function很傻逼的话，会影响performance
       （因为list太长）
-    2. 稍微好点的：Probing: 
+    2. 稍微好点的：Probing: H(i) = i % size of table
           Linear Probing:  
-              instead of using H(i) = i % size of table; adding a linear function f(i) = i (for example)
-              让hash function = H(i) = (H(i) ＋ f(i)) % size of table; i 从0开始，如果H(i)已经被占据了
+              instead of using H(i) directly; adding a linear function f(i) = i (for example)
+              让hash function = Hash(i) = (H(i) ＋ f(i)) % size of table; i 从0开始，如果H(i)已经被占据了
               ，那么i++,直到找到下一个空的bucket
           Quadratic Probing: 
               跟上面一样，只不过f(i) = i^2; i = 1,2,3,.....(每次遇到collision就i++)
               缺点：容易跳过空的bucket，even though there are empty space available
 
           Double Hashing:
-              f(i) = i * h2(x); i = 1,2,3,.....(每次遇到collision就i++)
-              H(i) = (H(i) +ｉ* f(x)) % size of table
-                f(x) = R – (x mod R)
+              f(i) = i * H2(x); i = 1,2,3,.....(每次遇到collision就i++)
+              Hash(i) = (H(i) + f(i)) % size of table = (H(i) + i * H2(i)) % size of table
+                H2(i) = R – (i mod R)
                 R is prime number less than TableSize
           Rehashing:
               Normally double the size of table (still a prime number though)
