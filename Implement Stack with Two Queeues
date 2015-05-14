@@ -1,0 +1,57 @@
+/**
+ * Created by Jiazhang_Liu on 5/14/2015.
+ */
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.Iterator;
+
+public class Main<T> {
+    Queue<T> queue1 = new LinkedList<T>();
+    Queue<T> queue2 = new LinkedList<T>();
+
+    public static void main(String args[]) {
+        Main m = new Main();
+
+        m.push("whatever");
+        m.push(1);
+        m.push(2);
+        m.push(3);
+        m.push(4);
+        m.push(5);
+
+        m.pop();
+        m.pop();
+        m.pop();
+        m.pop();
+        m.pop();
+        m.pop();
+    }
+
+    public void push(T input) {
+        queue1.add(input);
+        display();
+    }
+
+    public T pop() {
+        int i = 0;
+        while(i < queue1.size()-1) {
+            queue2.add(queue1.remove());
+        }
+
+        T result = queue1.remove();
+
+        queue1 = queue2;
+        queue2 = new LinkedList<T>();
+
+        display();
+        return result;
+    }
+
+    public void display() {
+        Iterator i = queue1.iterator();
+        while(i.hasNext()) {
+            System.err.println(i.next());
+        }
+        System.err.println();
+    }
+}
